@@ -24,6 +24,8 @@ FetchContent_MakeAvailable(raylib)
 
 set(PROJECT_SOURCES
     src/main.cpp
+    src/game_loop.cpp
+    src/init_engine.cpp
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
