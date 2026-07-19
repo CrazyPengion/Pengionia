@@ -18,15 +18,19 @@
 #include "init_assets.h"
 // Get definition for StartGameLoop();
 #include "game_loop.h"
+// Unload Assets
+#include "unload_assets.h"
 
 int main() {
     InitEngine();
     InitAssets();
+
     StartGameLoop();
 
+    UnloadAssets();
+    CloseAudioDevice();
     CloseWindow();
     return 0;
-
 }
 
 void UpdateDrawFrame() 
