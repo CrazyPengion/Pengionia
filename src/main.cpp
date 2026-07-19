@@ -21,22 +21,19 @@
 // Unload Assets
 #include "unload_assets.h"
 
-int main() {
-    InitEngine();
-    InitAssets();
+int main()
+{
+	InitEngine();
+	InitAssets();
 
-    StartGameLoop();
-
-    UnloadAssets();
-    CloseAudioDevice();
-    CloseWindow();
-    return 0;
+	StartGameLoop();
+	return 0;
 }
 
-void UpdateDrawFrame() 
+void UpdateDrawFrame()
 {
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
-    DrawText("Hello, World!", 10, 10, 20, DARKGRAY);
-    EndDrawing();
+	BeginDrawing();
+	ClearBackground(RAYWHITE);
+	DrawText("Hello, World!", 10, 10, 20, DARKGRAY);
+	EndDrawing();
 }
