@@ -1,6 +1,7 @@
-#include "game_loop.h"
-#include "main.h"
-#include "unload_assets.h"
+#include "../game_loop/game_loop.h"
+#include "../main.h"
+#include "../enums.h"
+#include "../assets/asset_manager.h"
 #include "raylib.h"
 
 
@@ -20,7 +21,7 @@ void StartGameLoop()
         UpdateDrawFrame();
     }
 
-    UnloadAssets();
+    ManageAssets(UNLOAD_ASSETS);
     CloseAudioDevice();
     CloseWindow();
 #endif

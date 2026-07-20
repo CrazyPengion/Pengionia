@@ -10,16 +10,16 @@
 #include <iostream>
 //DEBUG end
 
-#include "main.h"		   // Forward Declarations for functions in main.cpp
-#include "init_engine.h"   // Initialize window, sound engine
-#include "init_assets.h"   // Initialize images and sounds
-#include "game_loop.h"	   // Get definition for StartGameLoop();
-#include "unload_assets.h" // Unload Assets
+#include "enums.h"				  // Enums
+#include "main.h"				  // Forward Declarations for functions in main.cpp
+#include "engine/init_engine.h"   // Initialize window, sound engine
+#include "assets/asset_manager.h" // Load / Unload Assets
+#include "game_loop/game_loop.h"  // Get definition for StartGameLoop();
 
 int main()
 {
 	InitEngine();
-	InitAssets();
+	ManageAssets(LOAD_ASSETS);
 
 	StartGameLoop();
 	return 0;

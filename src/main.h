@@ -1,9 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+// called internally
 void UpdateDrawFrame();
-
-// Get variables from init_assets / etc into main
-//inline Texture2D groundImages[];
 
 #endif
