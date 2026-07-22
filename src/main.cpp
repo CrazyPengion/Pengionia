@@ -27,7 +27,7 @@ Player player;
 int main()
 {
 	InitEngine();
-	ManageAssets(LOAD_ASSETS);
+	ManageAssets(FunctionStates::LOAD_ASSETS);
 
 	StartGameLoop();
 	return 0;
@@ -43,6 +43,7 @@ void UpdateDrawFrame()
 	DebugMove();
 }
 
+// DEBUG start
 void DebugMove()
 {
 	if (IsKeyDown(KEY_W))
@@ -56,3 +57,4 @@ void DebugMove()
 	std::cout << player.pos.x << " | " << player.pos.y << '\n';
 	debugMovingPos = player.pos;
 }
+// DEBUG end

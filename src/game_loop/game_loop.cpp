@@ -21,7 +21,7 @@ void StartGameLoop()
         UpdateDrawFrame();
     }
 
-    ManageAssets(UNLOAD_ASSETS);
+    ManageAssets(FunctionStates::UNLOAD_ASSETS);
     CloseAudioDevice();
     CloseWindow();
 #endif

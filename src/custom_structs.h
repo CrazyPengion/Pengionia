@@ -7,4 +7,10 @@ struct Vector2int
 	int y;
 };
 
+struct ModifiedBlock
+{
+	Vector2int pos;
+	int blockId;
+};
+
 #endif
