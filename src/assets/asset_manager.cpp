@@ -7,6 +7,7 @@ void ManageAssets(FunctionStates state)
     {
         LoadAssets();
         LoadSounds();
+        ////Set window icon
     }
 
     if (state == UNLOAD_ASSETS)

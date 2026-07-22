@@ -1,4 +1,5 @@
 #include "../engine/init_engine.h"
+#include "../player/player.h"
 #include "raylib.h"
 
 void InitEngine()
@@ -9,8 +10,7 @@ void InitEngine()
 
 void InitGameWindow()
 {
-	InitWindow(800, 450, "My Game");
-	//Set window icon
+	InitWindow(400, 400, "My Game");
 }
 
 /*

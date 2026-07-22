@@ -27,6 +27,8 @@ set(PROJECT_SOURCES
     src/engine/init_engine.cpp
     src/assets/asset_manager.cpp
     src/game_loop/game_loop.cpp
+    src/displaying/coordinate_converter.cpp
+    src/player/player.cpp
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
