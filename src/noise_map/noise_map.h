@@ -3,7 +3,7 @@
 
 #include "raylib.h"
 
-Texture2D generateNoiseMap();
+Texture2D generateNoiseMap(int worldSeed);
 Image makeTilesAt255Red(Image inputImage);
 
 #endif

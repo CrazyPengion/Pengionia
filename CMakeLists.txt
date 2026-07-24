@@ -14,13 +14,30 @@ set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(BUILD_GAMES OFF CACHE BOOL "" FORCE)
 
 include(FetchContent)
+
+# Raylib Dependency
 FetchContent_Declare(
     raylib
     GIT_REPOSITORY https://github.com/raysan5/raylib.git
     GIT_TAG        6.0
     GIT_SHALLOW    TRUE
 )
-FetchContent_MakeAvailable(raylib)
+
+# FastNoiseLite Dependency
+FetchContent_Declare(
+    fastnoiselite
+    GIT_REPOSITORY https://github.com/Auburn/FastNoiseLite.git
+    GIT_TAG        master
+    GIT_SHALLOW    TRUE
+)
+
+FetchContent_MakeAvailable(raylib fastnoiselite)
+
+# Define header-only INTERFACE library target for FastNoiseLite
+if(NOT TARGET FastNoiseLite)
+    add_library(FastNoiseLite INTERFACE)
+    target_include_directories(FastNoiseLite INTERFACE ${fastnoiselite_SOURCE_DIR}/Cpp)
+endif()
 
 set(PROJECT_SOURCES
     src/main.cpp
@@ -30,12 +47,13 @@ set(PROJECT_SOURCES
     src/displaying/coordinate_converter.cpp
     src/player/player.cpp
     src/noise_map/noise_map.cpp
+    src/world/world.cpp
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib FastNoiseLite)
 
 # Compiler options
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")

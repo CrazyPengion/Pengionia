@@ -22,7 +22,7 @@ Texture2D noise2;
 #include "player/player.h"        // Get definition for player class
 #include "displaying/coordinate_converter.h" // Get world to the screen coordinate converter
 #include "custom_structs.h"		  // Get custom structs
-#include "noise_map/noise_map.h"  // Get noise map utility
+#include "world/world.h"          // Get map generator
 
 Player player;
 
@@ -64,7 +64,7 @@ void DebugMove()
 	// Generate noise map
 	if (IsKeyDown(KEY_E))
 	{
-		noise2 = generateNoiseMap();
+		noise2 = getMap(1);
 	}
 
 	std::cout << player.pos.x << " | " << player.pos.y << '\n';
