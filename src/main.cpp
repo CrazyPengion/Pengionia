@@ -22,6 +22,7 @@ Texture2D noise2;
 #include "player/player.h"        // Get definition for player class
 #include "displaying/coordinate_converter.h" // Get world to the screen coordinate converter
 #include "custom_structs.h"		  // Get custom structs
+#include "noise_map/noise_map.h"  // Get noise map utility
 
 Player player;
 
@@ -39,8 +40,8 @@ void UpdateDrawFrame()
 	BeginDrawing();
 	ClearBackground(RAYWHITE);
 	Vector2 textPos{ WorldToScreenPos(debugObjectPos, debugMovingPos) };
-	DrawText("Press E for noise map.", textPos.x, textPos.y, 40, DARKGRAY);
-	DrawTextureEx(noise2, WorldToScreenPos(Vector2{ (0,0) }, debugMovingPos), 0.0f, 2.0f, WHITE); // set scale as a
+	DrawText("Press E for noise map.", static_cast<int>(textPos.x), static_cast<int>(textPos.y), 40, DARKGRAY);
+	DrawTextureEx(noise2, WorldToScreenPos(Vector2{ (0.0f,0.0f) }, debugMovingPos), 0.0f, 2.0f, WHITE); // set scale as a
 																				// global variable - game scale
 																				// add separate UI scale
 	EndDrawing();
@@ -63,9 +64,7 @@ void DebugMove()
 	// Generate noise map
 	if (IsKeyDown(KEY_E))
 	{
-		Image noise = GenImagePerlinNoise(1500, 1500, 0, 0, 60.0f);
-		noise2 = LoadTextureFromImage(noise);
-		SetTextureFilter(noise2, TEXTURE_FILTER_POINT);
+		noise2 = generateNoiseMap();
 	}
 
 	std::cout << player.pos.x << " | " << player.pos.y << '\n';

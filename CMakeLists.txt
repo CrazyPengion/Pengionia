@@ -29,6 +29,7 @@ set(PROJECT_SOURCES
     src/game_loop/game_loop.cpp
     src/displaying/coordinate_converter.cpp
     src/player/player.cpp
+    src/noise_map/noise_map.cpp
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
