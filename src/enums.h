@@ -1,5 +1,6 @@
 #ifndef ENUMS_H
 #define ENUMS_H
+#include <cstdint>
 
 enum class FunctionStates : uint8_t 
 {

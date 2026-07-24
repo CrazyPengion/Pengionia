@@ -3,14 +3,14 @@
 
 void ManageAssets(FunctionStates state)
 {
-    if (state == LOAD_ASSETS)
+    if (state == FunctionStates::LOAD_ASSETS)
     {
         LoadAssets();
         LoadSounds();
         ////Set window icon
     }
 
-    if (state == UNLOAD_ASSETS)
+    if (state == FunctionStates::UNLOAD_ASSETS)
     {
         UnloadAssets();
         UnloadSounds();
