@@ -10,7 +10,7 @@ void InitEngine()
 
 void InitGameWindow()
 {
-	InitWindow(400, 400, "My Game");
+	InitWindow(1920, 1080, "My Game");
 }
 
 /*

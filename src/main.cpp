@@ -11,6 +11,7 @@
 Vector2 debugObjectPos{ 0.0f,0.0f };
 Vector2 debugMovingPos{ 0.0f,0.0f };
 void DebugMove();
+Texture2D noise2;
 //DEBUG end
 
 #include "enums.h"				  // Get Enums
@@ -38,8 +39,12 @@ void UpdateDrawFrame()
 	BeginDrawing();
 	ClearBackground(RAYWHITE);
 	Vector2 textPos{ WorldToScreenPos(debugObjectPos, debugMovingPos) };
-	DrawText("Hello, World!", textPos.x, textPos.y, 40, DARKGRAY);
+	DrawText("Press E for noise map.", textPos.x, textPos.y, 40, DARKGRAY);
+	DrawTextureEx(noise2, WorldToScreenPos(Vector2{ (0,0) }, debugMovingPos), 0.0f, 2.0f, WHITE); // set scale as a
+																				// global variable - game scale
+																				// add separate UI scale
 	EndDrawing();
+
 	DebugMove();
 }
 
@@ -47,13 +52,22 @@ void UpdateDrawFrame()
 void DebugMove()
 {
 	if (IsKeyDown(KEY_W))
-		player.pos.y -= 3.0f;
+		player.pos.y -= 20.0f;
 	if (IsKeyDown(KEY_S))
-		player.pos.y += 3.0f;
+		player.pos.y += 20.0f;
 	if (IsKeyDown(KEY_A))
-		player.pos.x -= 3.0f;
+		player.pos.x -= 20.0f;
 	if (IsKeyDown(KEY_D))
-		player.pos.x += 3.0f;
+		player.pos.x += 20.0f;
+	
+	// Generate noise map
+	if (IsKeyDown(KEY_E))
+	{
+		Image noise = GenImagePerlinNoise(1500, 1500, 0, 0, 60.0f);
+		noise2 = LoadTextureFromImage(noise);
+		SetTextureFilter(noise2, TEXTURE_FILTER_POINT);
+	}
+
 	std::cout << player.pos.x << " | " << player.pos.y << '\n';
 	debugMovingPos = player.pos;
 }
