@@ -2,37 +2,36 @@
 #include "../custom_structs.h"
 #include "FastNoiseLite.h"
 
-Vector2int noiseSize{ 1500,1500 };
-
-Texture2D generateNoiseMap(int worldSeed)
-{
+Texture2D generateNoiseMap(int worldSeed, Vector2int screenSize)
+{	
 	// Generate noise map
 	FastNoiseLite noise;
 	noise.SetSeed(worldSeed);
+
 	noise.SetNoiseType(FastNoiseLite::NoiseType_Cellular);
 	noise.SetFrequency(-0.02f);
 	noise.SetCellularDistanceFunction(FastNoiseLite::CellularDistanceFunction_EuclideanSq);
 	noise.SetCellularReturnType(FastNoiseLite::CellularReturnType_Distance);
 	noise.SetCellularJitter(1.0f);
 
-	Image image = GenImageColor(noiseSize.x, noiseSize.y, BLANK);
+	Image image = GenImageColor(screenSize.x, screenSize.y, BLANK);
 
 	// Warp (improve) noise map
 	FastNoiseLite warp;
 	warp.SetSeed(worldSeed);
 	warp.SetDomainWarpType(FastNoiseLite::DomainWarpType_OpenSimplex2);
-	warp.SetDomainWarpAmp(190.0f);
+	warp.SetDomainWarpAmp(80.0f);
 	warp.SetFrequency(0.01f);
 
-	for (int y = 0; y < noiseSize.y; y++)
+	for (int y = 0; y < screenSize.y; y++)
 	{
-		for (int x = 0; x < noiseSize.x; x++)
+		for (int x = 0; x < screenSize.x; x++)
 		{
 			float xCoord = static_cast<float>(x);
 			float yCoord = static_cast<float>(y);
 
 			// 1. Distort coordinates using warp instance
-			warp.DomainWarp(xCoord, yCoord);
+			warp.DomainWarp(xCoord, yCoord); 
 
 			// 2. Sample noise with distorted coordinates
 			float val = noise.GetNoise(xCoord, yCoord);
@@ -44,28 +43,37 @@ Texture2D generateNoiseMap(int worldSeed)
 			ImageDrawPixel(&image, x, y, color);
 		}
 	}
-	image = makeTilesAt255Red(image);
+
+	image = debugModifyImage(image, screenSize);
 	Texture2D noiseMap = LoadTextureFromImage(image);
 	UnloadImage(image);
 
 	return noiseMap;
 }
 
-Image makeTilesAt255Red(Image inputImage)
+Image debugModifyImage(Image inputImage, Vector2int screenSize)
 {
 	Color* pixels = LoadImageColors(inputImage);
-	for (int i = 0; i < noiseSize.x * noiseSize.y; i++)
+	for (int i = 0; i < screenSize.x * screenSize.y; i++)
 	{
-		if (pixels[i].r > 40)
+		if (pixels[i].r > 55)
 		{
 			pixels[i] = RED;
+		}
+		else if (pixels[i].r < 56 && pixels[i].r > 37)
+		{
+			pixels[i] = GREEN;
+		}
+		else 
+		{
+			pixels[i] = YELLOW;
 		}
 	}
 	
 	Image modifiedNoise{};
 	modifiedNoise.data = pixels;
-	modifiedNoise.width = noiseSize.x;
-	modifiedNoise.height = noiseSize.y;
+	modifiedNoise.width = screenSize.x;
+	modifiedNoise.height = screenSize.y;
 	modifiedNoise.mipmaps = 1;
 	modifiedNoise.format = PIXELFORMAT_UNCOMPRESSED_R8G8B8A8;
 

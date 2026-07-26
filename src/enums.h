@@ -5,7 +5,10 @@
 enum class FunctionStates : uint8_t 
 {
     LOAD_ASSETS,
-    UNLOAD_ASSETS
+    UNLOAD_ASSETS,
+
+    PLAYER_WALK,
+    PLAYER_FLY // add swim / crawl?
 };
 
 enum class BlockType : uint8_t
@@ -16,4 +19,13 @@ enum class BlockType : uint8_t
     //STONE // Modified / Small
 };
 
+enum class MenuPage : uint8_t
+{
+    START_PLAYING,
+    SELECT_MODE,
+    CREATING_WORLD,
+    SETTINGS,
+    NONE,
+    PAUSE
+};
 #endif

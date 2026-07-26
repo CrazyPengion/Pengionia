@@ -37,37 +37,21 @@ int main()
 
 void UpdateDrawFrame()
 {
+	player.calculateMovement(player, FunctionStates::PLAYER_FLY);
+
 	BeginDrawing();
 	ClearBackground(RAYWHITE);
-	Vector2 textPos{ WorldToScreenPos(debugObjectPos, debugMovingPos) };
+	Vector2 textPos{ WorldToScreenPos(debugObjectPos, player.pos) };
 	DrawText("Press E for noise map.", static_cast<int>(textPos.x), static_cast<int>(textPos.y), 40, DARKGRAY);
-	DrawTextureEx(noise2, WorldToScreenPos(Vector2{ (0.0f,0.0f) }, debugMovingPos), 0.0f, 2.0f, WHITE); // set scale as a
+	DrawTextureEx(noise2, WorldToScreenPos(Vector2{ (0.0f,0.0f) }, player.pos), 0.0f, 2.0f, WHITE); // set scale as a
 																				// global variable - game scale
 																				// add separate UI scale
 	EndDrawing();
 
-	DebugMove();
-}
-
-// DEBUG start
-void DebugMove()
-{
-	if (IsKeyDown(KEY_W))
-		player.pos.y -= 20.0f;
-	if (IsKeyDown(KEY_S))
-		player.pos.y += 20.0f;
-	if (IsKeyDown(KEY_A))
-		player.pos.x -= 20.0f;
-	if (IsKeyDown(KEY_D))
-		player.pos.x += 20.0f;
-	
-	// Generate noise map
+	// DEBUG start
 	if (IsKeyDown(KEY_E))
 	{
-		noise2 = getMap(1);
+		noise2 = getMap(1, Vector2int{ GetScreenWidth(), GetScreenHeight() });
 	}
-
-	std::cout << player.pos.x << " | " << player.pos.y << '\n';
-	debugMovingPos = player.pos;
+	// DEBUG end
 }
-// DEBUG end
