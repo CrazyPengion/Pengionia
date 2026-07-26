@@ -1,7 +1,7 @@
 #include "../game_loop/game_loop.h"
 #include "../main.h"
 #include "../enums.h"
-#include "../assets/asset_manager.h"
+#include "../assets_code/asset_manager.h"
 #include "raylib.h"
 
 

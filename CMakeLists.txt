@@ -42,7 +42,7 @@ endif()
 set(PROJECT_SOURCES
     src/main.cpp
     src/engine/init_engine.cpp
-    src/assets/asset_manager.cpp
+    src/assets_code/asset_manager.cpp
     src/game_loop/game_loop.cpp
     src/displaying/coordinate_converter.cpp
     src/player/player.cpp

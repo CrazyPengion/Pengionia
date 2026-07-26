@@ -2,7 +2,7 @@
 #define PLAYER_H
 
 #include "raylib.h"
-#include "../enums.h"
+#include "../enums.h" // Get different function states
 //DEBUG start
 #include <iostream>
 //DEBUG end
@@ -15,14 +15,14 @@ public:
 
 	float velocity{ 20.0f };
 	
-	void calculateMovement(Player& player, FunctionStates movementType)
+	void checkMovement(Player& player, PlayerStates movementType)
 	{
-		if (movementType == FunctionStates::PLAYER_WALK)
+		if (movementType == PlayerStates::MOVEMENT_WALK)
 		{
 
 		}
 
-		else if (movementType == FunctionStates::PLAYER_FLY)
+		else if (movementType == PlayerStates::MOVEMENT_FLY)
 		{
 			if (IsKeyDown(KEY_W))
 				player.pos.y -= 20.0f;
@@ -37,6 +37,18 @@ public:
 		// DEBUG start
 		//std::cout << player.pos.x << " | " << player.pos.y << '\n';
 		// DEBUG end
+	}
+
+	void displayPlayer(Texture2D skin, float screenScale) // 16 * 32
+	{
+		// Get offset from center - half player size in each direction
+		int xOffset{ GetScreenWidth() / (GetScreenWidth() / 8) };
+		int yOffset{ GetScreenHeight() / (GetScreenHeight() / 8) * 2 };
+
+		// Calculate final position (center) based on screen size & offset
+		Vector2 position{ (GetScreenWidth() / 2 - xOffset),(GetScreenHeight() / 2 - yOffset)};
+
+		DrawTextureEx(skin, position, 0.0f, screenScale, WHITE);
 	}
 };
 

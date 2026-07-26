@@ -1,13 +1,18 @@
-#include "../assets/asset_manager.h"
+#include "../assets_code/asset_manager.h"
 #include "../enums.h"
 
-void ManageAssets(FunctionStates state)
+// Central object for accessing image assets
+inline ImageManager imageManager;
+
+ImageManager ManageAssets(FunctionStates state)
 {
     if (state == FunctionStates::LOAD_ASSETS)
     {
         LoadAssets();
         LoadSounds();
         ////Set window icon
+
+        return imageManager;
     }
 
     if (state == FunctionStates::UNLOAD_ASSETS)
@@ -19,7 +24,7 @@ void ManageAssets(FunctionStates state)
 
 void LoadAssets()
 {
-
+    imageManager.playerSkin = LoadTexture(TextFormat("assets/spr_character.png"));
 }
 void LoadSounds()
 {
@@ -28,7 +33,8 @@ void LoadSounds()
 
 void UnloadAssets()
 {
-
+    imageManager.unloadAll();
+    // UNLOAD NOISE MAP
 }
 void UnloadSounds()
 {
