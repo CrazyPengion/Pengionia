@@ -8,9 +8,20 @@ Texture2D getMap(int worldSeed, Vector2int screenSize);
 
 class World
 {
+private:
+	int seed;
 public:
 	std::string name;
-	int seed;
+
+	void GenerateSeed()
+	{
+		seed = GetRandomValue(0, 1000000000);
+	}
+
+	void Display(Player& player, float screenScale)
+	{
+		
+	}
 };
 
 #endif

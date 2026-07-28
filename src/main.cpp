@@ -26,7 +26,7 @@ Texture2D noise2;
 
 Player player;
 inline ImageManager imageManager;
-float screenScale{ 2.0f }; // TODO will be used later to allow different screen sizes
+float screenScale{ 4.0f }; // TODO will be used later to allow different screen sizes
 
 int main()
 {
@@ -40,28 +40,29 @@ int main()
 void UpdateDrawFrame()
 {
 //LOGIC
-	player.checkMovement(player, PlayerStates::MOVEMENT_FLY);
+	player.CheckMovement(player, PlayerStates::MOVEMENT_FLY); // DEBUG: FLY
 
 //DISPLAYING
 	BeginDrawing(); 
 	ClearBackground(RAYWHITE);
 
 	// display world
-	player.displayPlayer(imageManager.playerSkin, screenScale);
+	player.Display(imageManager.playerSkin, screenScale);
 	// display enemies
 
 
 	// DEBUG start
 	Vector2 textPos{ WorldToScreenPos(debugObjectPos, player.pos) };
 	DrawText("Press E for noise map.", static_cast<int>(textPos.x), static_cast<int>(textPos.y), 40, DARKGRAY);
-	DrawTextureEx(noise2, WorldToScreenPos(Vector2{ (0.0f,0.0f) }, player.pos), 0.0f, 2.0f, WHITE);
+	DrawTextureEx(noise2, WorldToScreenPos(Vector2{ (0.0f,0.0f) }, player.pos), 0.0f, 8.0f * screenScale, WHITE);
 	// DEBUG end
+	player.Display(imageManager.playerSkin, screenScale);
 	EndDrawing();
 
 	// DEBUG start
 	if (IsKeyDown(KEY_E))
 	{
-		noise2 = getMap(1, Vector2int{ GetScreenWidth(), GetScreenHeight() });
+		noise2 = getMap(1, Vector2int{ GetScreenWidth() / 8, GetScreenHeight() / 8 });
 	}
 	// DEBUG end
 }

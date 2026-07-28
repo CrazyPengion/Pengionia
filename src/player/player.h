@@ -9,13 +9,13 @@
 
 class Player
 {
+private:
+	float velocity{ 20.0f };
 public:
 	int hp{ 100 };
 	Vector2 pos{ 0.0f,0.0f };
 
-	float velocity{ 20.0f };
-	
-	void checkMovement(Player& player, PlayerStates movementType)
+	void CheckMovement(Player& player, PlayerStates movementType)
 	{
 		if (movementType == PlayerStates::MOVEMENT_WALK)
 		{
@@ -39,7 +39,16 @@ public:
 		// DEBUG end
 	}
 
-	void displayPlayer(Texture2D skin, float screenScale) // 16 * 32
+	Vector4 CheckCollisions(Player& player, Image closeMap)
+	{
+		/*
+		1. Get closeMap: a cutout of the map of player +1 tile (/ 1 tile + 1 pixel) in each side
+		2. Check which colors it are
+		3. If it is not empty - set the distance into the Vector (UP, RIGHT, BOTTOM, LEFT)
+		*/
+	}
+
+	void Display(Texture2D skin, float screenScale) // 16 * 32
 	{
 		// Get offset from center - half player size in each direction
 		int xOffset{ GetScreenWidth() / (GetScreenWidth() / 8) };
