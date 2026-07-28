@@ -26,7 +26,7 @@ Texture2D noise2;
 
 Player player;
 inline ImageManager imageManager;
-float screenScale{ 1.0f }; // TODO will be used later to allow different screen sizes
+float screenScale{ 2.0f }; // TODO will be used later to allow different screen sizes
 
 int main()
 {

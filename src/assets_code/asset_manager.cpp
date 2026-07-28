@@ -19,6 +19,8 @@ ImageManager ManageAssets(FunctionStates state)
     {
         UnloadAssets();
         UnloadSounds();
+
+        return imageManager; //needs return
     }
 }
 
