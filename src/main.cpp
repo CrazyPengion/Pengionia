@@ -8,10 +8,6 @@
 
 //DEBUG start
 #include <iostream>
-Vector2 debugObjectPos{ 0.0f,0.0f };
-Vector2 debugMovingPos{ 0.0f,0.0f };
-void DebugMove();
-Texture2D noise2;
 //DEBUG end
 
 #include "enums.h"				  // Get Enums
@@ -25,6 +21,7 @@ Texture2D noise2;
 #include "world/world.h"          // Get map generator
 
 Player player;
+World world;
 inline ImageManager imageManager;
 float screenScale{ 4.0f }; // TODO will be used later to allow different screen sizes
 
@@ -39,30 +36,18 @@ int main()
 
 void UpdateDrawFrame()
 {
-//LOGIC
+	//LOGIC
 	player.CheckMovement(player, PlayerStates::MOVEMENT_FLY); // DEBUG: FLY
 
-//DISPLAYING
-	BeginDrawing(); 
-	ClearBackground(RAYWHITE);
 
-	// display world
-	player.Display(imageManager.playerSkin, screenScale);
-	// display enemies
+	//DISPLAYING
+	BeginDrawing();
+	ClearBackground(BLACK);
 
+	// Display world
+	world.DisplayMap(player.pos, screenScale);
 
-	// DEBUG start
-	Vector2 textPos{ WorldToScreenPos(debugObjectPos, player.pos) };
-	DrawText("Press E for noise map.", static_cast<int>(textPos.x), static_cast<int>(textPos.y), 40, DARKGRAY);
-	DrawTextureEx(noise2, WorldToScreenPos(Vector2{ (0.0f,0.0f) }, player.pos), 0.0f, 8.0f * screenScale, WHITE);
-	// DEBUG end
+	// Display player
 	player.Display(imageManager.playerSkin, screenScale);
 	EndDrawing();
-
-	// DEBUG start
-	if (IsKeyDown(KEY_E))
-	{
-		noise2 = getMap(1, Vector2int{ GetScreenWidth(), GetScreenHeight() }, player.pos);
-	}
-	// DEBUG end
 }

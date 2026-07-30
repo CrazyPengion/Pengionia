@@ -1,8 +1,12 @@
-#include "noise_map.h"
-#include "../custom_structs.h"
-#include "FastNoiseLite.h"
+#include "noise_map.h"		   // own header file
+#include "FastNoiseLite.h"     // noise map generator
+#include "../custom_structs.h" // Vector2int
 
-Image generateNoiseMap(int worldSeed, Vector2int screenSize, Vector2 playerPos, bool returnCloseMap)
+// DEBUG start
+#include <iostream>
+// DEBUG end
+
+Image generateNoiseMap(int worldSeed, Vector2int screenSize, float screenScale, Vector2 playerPos)
 {	
 	// Generate noise map
 	FastNoiseLite noise;
@@ -43,7 +47,6 @@ Image generateNoiseMap(int worldSeed, Vector2int screenSize, Vector2 playerPos, 
 			ImageDrawPixel(&image, x, y, color);
 		}
 	}
-
 	image = debugModifyImage(image, screenSize);
 	return image;
 }

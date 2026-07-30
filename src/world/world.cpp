@@ -1,16 +1,16 @@
-#include "FastNoiseLite.h"
-#include "raylib.h"
-#include "../noise_map/noise_map.h"
-#include "../custom_structs.h"
+#include "raylib.h"					// Texture2D
+#include "../enums.h"				// understandable multiplicators
+#include "../custom_structs.h"      // Vector2int
+#include "../noise_map/noise_map.h" // access noise map generator
 
-Texture2D getMap(int worldSeed, Vector2int screenSize, Vector2 playerPos)
+Texture2D getMap(int worldSeed, Vector2int screenSize, float screenScale, Vector2 playerPos)
 {
-	// Divide all sizes trough 8, as that's the tile size
-	screenSize.x /= 8;
-	screenSize.y /= 8;
-	playerPos.x /= 8;
-	playerPos.y /= 8;
+	// convert pixels to tiles
+	screenSize.x /= DrawSettings::TILE_SIZE * screenScale;
+	screenSize.y /= DrawSettings::TILE_SIZE * screenScale;
+	playerPos.x /= DrawSettings::TILE_SIZE * screenScale;
+	playerPos.y /= DrawSettings::TILE_SIZE * screenScale;
 
-	Texture2D noiseMap = LoadTextureFromImage(generateNoiseMap(worldSeed, screenSize, playerPos, false));
+	Texture2D noiseMap = LoadTextureFromImage(generateNoiseMap(worldSeed, screenSize, screenScale, playerPos));
 	return noiseMap;
 }

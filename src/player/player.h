@@ -46,6 +46,8 @@ public:
 		1. Get closeMap: a cutout of the map of player +1 tile (/ 1 tile + 1 pixel) in each side
 		2. Check which colors it are
 		3. If it is not empty - set the distance into the Vector (UP, RIGHT, BOTTOM, LEFT)
+
+		The idea above is likely very suboptimal, especially for non-player collisions.
 		*/
 	}
 
