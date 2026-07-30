@@ -2,7 +2,7 @@
 #include "../custom_structs.h"
 #include "FastNoiseLite.h"
 
-Texture2D generateNoiseMap(int worldSeed, Vector2int screenSize)
+Image generateNoiseMap(int worldSeed, Vector2int screenSize, Vector2 playerPos, bool returnCloseMap)
 {	
 	// Generate noise map
 	FastNoiseLite noise;
@@ -27,16 +27,16 @@ Texture2D generateNoiseMap(int worldSeed, Vector2int screenSize)
 	{
 		for (int x = 0; x < screenSize.x; x++)
 		{
-			float xCoord = static_cast<float>(x);
-			float yCoord = static_cast<float>(y);
-
-			// 1. Distort coordinates using warp instance
+			float xCoord = static_cast<float>(x) + playerPos.x;
+			float yCoord = static_cast<float>(y) + playerPos.y;
+				
+			/// 1. Distort coordinates using warp instance
 			warp.DomainWarp(xCoord, yCoord); 
 
-			// 2. Sample noise with distorted coordinates
+			/// 2. Sample noise with distorted coordinates
 			float val = noise.GetNoise(xCoord, yCoord);
 
-			// 3. Normalize value from [-1, 1] to [0, 255] for Raylib image color
+			/// 3. Normalize value from [-1, 1] to [0, 255] for Raylib image color
 			unsigned char colorVal = static_cast<unsigned char>((val + 1.0f) * 0.5f * 255.0f);
 			Color color = { colorVal, colorVal, colorVal, 255 };
 
@@ -45,10 +45,7 @@ Texture2D generateNoiseMap(int worldSeed, Vector2int screenSize)
 	}
 
 	image = debugModifyImage(image, screenSize);
-	Texture2D noiseMap = LoadTextureFromImage(image);
-	UnloadImage(image);
-
-	return noiseMap;
+	return image;
 }
 
 Image debugModifyImage(Image inputImage, Vector2int screenSize)

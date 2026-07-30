@@ -4,7 +4,7 @@
 #include "../noise_map/noise_map.h"
 #include <string>
 
-Texture2D getMap(int worldSeed, Vector2int screenSize);
+Texture2D getMap(int worldSeed, Vector2int screenSize, Vector2 playerPos);
 
 class World
 {

@@ -62,7 +62,7 @@ void UpdateDrawFrame()
 	// DEBUG start
 	if (IsKeyDown(KEY_E))
 	{
-		noise2 = getMap(1, Vector2int{ GetScreenWidth() / 8, GetScreenHeight() / 8 });
+		noise2 = getMap(1, Vector2int{ GetScreenWidth(), GetScreenHeight() }, player.pos);
 	}
 	// DEBUG end
 }

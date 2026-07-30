@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "../enums.h" // Get different function states
+#include "../noise_map/noise_map.h" // Get closeMap
 //DEBUG start
 #include <iostream>
 //DEBUG end
@@ -50,9 +51,9 @@ public:
 
 	void Display(Texture2D skin, float screenScale) // 16 * 32
 	{
-		// Get offset from center - half player size in each direction
-		int xOffset{ GetScreenWidth() / (GetScreenWidth() / 8) };
-		int yOffset{ GetScreenHeight() / (GetScreenHeight() / 8) * 2 };
+		// Get offset from center - half player size in each direction (& account for screen scale)
+		int xOffset{ GetScreenWidth() / (GetScreenWidth() / 8) * static_cast<int>(screenScale) };
+		int yOffset{ GetScreenHeight() / (GetScreenHeight() / 8) * 2 * static_cast<int>(screenScale) };
 
 		// Calculate final position (center) based on screen size & offset
 		Vector2 position{ (GetScreenWidth() / 2 - xOffset),(GetScreenHeight() / 2 - yOffset)};
