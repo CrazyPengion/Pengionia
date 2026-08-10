@@ -30,5 +30,5 @@ public:
 			DrawSettings::NO_ROTATION, DrawSettings::TILE_SIZE * screenScale, WHITE);
 	}                         // change this part to follow player ^
 };		In the function above: 1. Change get noise map into a one time function, currently it creates tons of new images (and/or unload it each time) (the larger plan is to load a part of the noise map and then display a part of that part in a chunk like system) 2. fix the map notfilling the screen in y axis
-
+		DOES FastNoiseLite HAVE A FUNCTION TO GET THE COLOR OF A SPECIFIC PIXEL LIKE RAYLIB?
 #endif
